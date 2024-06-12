@@ -1,3 +1,6 @@
+import { Model } from "mongoose"
+import { USER_ROLE } from "./user.constant"
+
 export interface IUser {
     name: string
     email: string
@@ -6,3 +9,9 @@ export interface IUser {
     address: string
     role: 'admin' | 'user'
 }
+
+export interface UserModel extends Model<IUser> {
+    isUserExistsByEmail(email: string): Promise<IUser>;
+}
+
+export type IUserRole = keyof typeof USER_ROLE;
