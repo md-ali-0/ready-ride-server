@@ -23,7 +23,7 @@ userSchema.pre('save', async function (next) {
 })
 
 userSchema.static('isUserExistsByEmail', async function (email: string) {
-    return await User.findOne({ email })
+    return await User.findOne({ email }).select('+password')
 })
 
 export const User = model<IUser, UserModel>('User', userSchema)

@@ -1,6 +1,6 @@
 import httpStatus from 'http-status'
 import { catchAsync } from '../../utils/catchAsync'
-import sendResponse from '../../utils/sendResponse'
+import sendResponse, { sendResponseWithToken } from '../../utils/sendResponse'
 import { AuthService } from './auth.service'
 
 const signUp = catchAsync(async (req, res) => {
@@ -14,6 +14,20 @@ const signUp = catchAsync(async (req, res) => {
     })
 })
 
+const logIn = catchAsync(async (req, res) => {
+    const payload = req.body
+    const { token, user }  = await AuthService.logIn(payload)
+
+    sendResponseWithToken(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'User logged in successfully',
+        token: token,
+        data: user,
+    })
+})
+
 export const AuthController = {
     signUp,
+    logIn
 }
