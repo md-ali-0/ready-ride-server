@@ -1,7 +1,7 @@
 import httpStatus from 'http-status';
-import { IErrorSources, TGenericError } from '../interface/error';
+import { IErrorSources, IGenericError } from '../interface/error';
 
-const handleDuplicateError = (error: any): TGenericError => {
+const handleDuplicateError = (error: any): IGenericError => {
     const statusCode = httpStatus.BAD_REQUEST;
     const message = 'Validation Error';
 

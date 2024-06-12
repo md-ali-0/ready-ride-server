@@ -14,3 +14,5 @@ const sendResponse = async <X>(res: Response, data: IResponse<X>) => {
         data: data?.data,
     })
 }
+
+export default sendResponse

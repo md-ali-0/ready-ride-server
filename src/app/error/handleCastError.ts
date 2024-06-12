@@ -1,8 +1,8 @@
 import httpStatus from 'http-status';
 import { Error } from 'mongoose';
-import { IErrorSources, TGenericError } from '../interface/error';
+import { IErrorSources, IGenericError } from '../interface/error';
 
-const handleCastError = (error: Error.CastError): TGenericError => {
+const handleCastError = (error: Error.CastError): IGenericError => {
     const statusCode = httpStatus.BAD_REQUEST;
     const message = 'Invalid Id';
     const errorSources: IErrorSources[] = [
