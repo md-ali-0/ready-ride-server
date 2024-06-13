@@ -2,7 +2,7 @@ import httpStatus from 'http-status';
 import { Error } from 'mongoose';
 import { IErrorSources, IGenericError } from '../interface/error';
 
-const handleValidationError = (error: Error.ValidationError) : IGenericError => {
+const handleValidationError = (error: Error.ValidationError): IGenericError => {
     const statusCode = httpStatus.BAD_REQUEST;
     const message = 'Validation Error';
     const errorSources: IErrorSources[] = Object.values(error.errors).map(
@@ -21,5 +21,4 @@ const handleValidationError = (error: Error.ValidationError) : IGenericError => 
     };
 };
 
-
-export default handleValidationError
+export default handleValidationError;

@@ -1,8 +1,8 @@
-import httpStatus from "http-status";
-import { ZodError, ZodIssue } from "zod";
-import { IErrorSources, IGenericError } from "../interface/error";
+import httpStatus from 'http-status';
+import { ZodError, ZodIssue } from 'zod';
+import { IErrorSources, IGenericError } from '../interface/error';
 
-const handleZodError = (error: ZodError) : IGenericError => {
+const handleZodError = (error: ZodError): IGenericError => {
     const statusCode = httpStatus.BAD_REQUEST;
     const message = 'Validation Error';
     const errorSources: IErrorSources[] = error.issues.map(
@@ -20,4 +20,4 @@ const handleZodError = (error: ZodError) : IGenericError => {
     };
 };
 
-export default handleZodError
+export default handleZodError;

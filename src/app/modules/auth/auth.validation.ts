@@ -1,5 +1,5 @@
-import { z } from 'zod'
-import { UserRole } from '../user/user.constant'
+import { z } from 'zod';
+import { UserRole } from '../user/user.constant';
 
 const signUpValidationSchema = z.object({
     body: z.object({
@@ -12,7 +12,7 @@ const signUpValidationSchema = z.object({
         address: z.string({ required_error: 'Address is Required' }).trim(),
         role: z.enum(UserRole, { message: 'Role must be admin or user' }),
     }),
-})
+});
 
 const loginValidationSchema = z.object({
     body: z.object({
@@ -21,9 +21,9 @@ const loginValidationSchema = z.object({
             .string({ invalid_type_error: 'Password must be string' })
             .max(20, { message: "Password Can't be more then 20 characters" }),
     }),
-})
+});
 
 export const AuthValidation = {
     signUpValidationSchema,
     loginValidationSchema,
-}
+};

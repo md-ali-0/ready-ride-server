@@ -17,7 +17,6 @@ const createRental = catchAsync(async (req, res) => {
 });
 
 const returnRental = catchAsync(async (req, res) => {
-
     const id = req.params.id;
     const result = await RentalService.returnRental(id);
 

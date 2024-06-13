@@ -100,7 +100,11 @@ const returnRental = async (id: string) => {
 
         const updateRental = await Rental.findByIdAndUpdate(
             id,
-            { returnTime: new Date(), totalCost : roundedTotalHours * updateBike?.pricePerHour, isReturned: true },
+            {
+                returnTime: new Date(),
+                totalCost: roundedTotalHours * updateBike?.pricePerHour,
+                isReturned: true,
+            },
             { new: true, session },
         );
 

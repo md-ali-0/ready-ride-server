@@ -15,7 +15,7 @@ export const auth = (...requestRoles: IUserRole[]) => {
             if (!token) {
                 throw new AppError(
                     httpStatus.UNAUTHORIZED,
-                    "You have no access to this route",
+                    'You have no access to this route',
                 );
             }
 
@@ -26,7 +26,7 @@ export const auth = (...requestRoles: IUserRole[]) => {
                 config.jwt_access_secret as string,
             );
 
-            const { email, role, iat } = decoded as JwtPayload;
+            const { email, role } = decoded as JwtPayload;
 
             const auhUser = await User.isUserExistsByEmail(email);
 
