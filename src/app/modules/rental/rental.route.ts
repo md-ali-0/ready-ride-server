@@ -14,7 +14,7 @@ router.post(
     RentalController.createRental,
 );
 
-router.put('/:id/return', auth(USER_ROLE.admin), RentalController.createRental);
+router.put('/:id/return', auth(USER_ROLE.admin), RentalController.returnRental);
 router.get('/', auth(USER_ROLE.user), RentalController.getAllRentals);
 
 export const RentalRoute = router;
