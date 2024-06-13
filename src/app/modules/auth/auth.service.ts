@@ -14,6 +14,13 @@ const signUp = async (payload: IUser) => {
 const logIn = async (payload: Partial<IUser>) => {
     const { email, password } = payload;
 
+    if (!email || !password) {
+        throw new AppError(
+            httpStatus.BAD_REQUEST,
+            'Email and password are required',
+        );
+    }
+
     const authUser = await User.isUserExistsByEmail(email as string);
 
     if (!authUser) {
@@ -21,17 +28,17 @@ const logIn = async (payload: Partial<IUser>) => {
     }
 
     const isUserPasswordMatched = await bcrypt.compare(
-        password as string,
-        authUser.password,
+        password,
+        authUser.password as string,
     );
 
     if (!isUserPasswordMatched) {
-        throw new AppError(httpStatus.NOT_FOUND, 'Password is Incorrect');
+        throw new AppError(httpStatus.UNAUTHORIZED, 'Password is Incorrect');
     }
 
-    const jwtPayload = {
-        email: authUser.email,
-        role: authUser.role,
+    const jwtPayload: { email: string; role: string } = {
+        email: authUser.email as string,
+        role: authUser.role as string,
     };
 
     const token = await createToken(
