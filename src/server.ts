@@ -7,17 +7,13 @@ let server: Server;
 
 async function bootstrap() {
     const port = config.port || 8080;
-    try {
-        await mongoose.connect(config.database_uri as string, {
-            dbName: config.database_name,
-        });
-        console.log('Database connected successfully..');
-        server = app.listen(port, () => {
-            console.log(`URL: http://localhost:${port}`);
-        });
-    } catch (error) {
-        throw error;
-    }
+    await mongoose.connect(config.database_uri as string, {
+        dbName: config.database_name,
+    });
+    console.log('Database connected successfully..');
+    server = app.listen(port, () => {
+        console.log(`URL: http://localhost:${port}`);
+    });
 }
 
 bootstrap();

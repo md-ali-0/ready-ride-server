@@ -13,7 +13,21 @@ const userSchema = new Schema<IUser, UserModel>(
         address: { type: String, required: true },
         role: { type: String, enum: UserRole, default: 'user' },
     },
-    { timestamps: true },
+    {
+        timestamps: true,
+        toJSON: {
+            transform: function (doc, ret) {
+                delete ret.password;
+                return ret;
+            },
+        },
+        toObject: {
+            transform: function (doc, ret) {
+                delete ret.password;
+                return ret;
+            },
+        },
+    },
 );
 
 userSchema.pre('save', async function (next) {
