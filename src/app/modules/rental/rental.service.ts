@@ -60,10 +60,24 @@ const createRental = async (user: JwtPayload, payload: IRental) => {
     } finally {
         await session.endSession();
     }
+};
 
-    
+const getAllRentals = async (email: string) => {
+    // checking if user exists
+    const authUser = await User.findOne({ email });
+    if (!authUser) {
+        throw new AppError(httpStatus.NOT_FOUND, 'User Not Found');
+    }
+
+    // finding all rentals by user
+    const result = await Rental.find({
+        userId: authUser._id,
+    });
+
+    return result;
 };
 
 export const RentalService = {
     createRental,
+    getAllRentals,
 };

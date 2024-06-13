@@ -16,6 +16,20 @@ const createRental = catchAsync(async (req, res) => {
     });
 });
 
+const getAllRentals = catchAsync(async (req, res) => {
+    const { email } = req.user;
+
+    const result = await RentalService.getAllRentals(email);
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Rentals retrieved successfully',
+        data: result,
+    });
+});
+
 export const RentalController = {
     createRental,
+    getAllRentals,
 };
