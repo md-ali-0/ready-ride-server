@@ -8,8 +8,6 @@ import { createToken } from './auth.utils';
 
 const signUp = async (payload: IUser) => {
     const result = await User.create(payload);
-    console.log(result);
-    
     return result;
 };
 
@@ -24,8 +22,7 @@ const logIn = async (payload: Partial<IUser>) => {
     }
 
     const authUser = await User.isUserExistsByEmail(email as string);
-    console.log(authUser);
-    
+
     if (!authUser) {
         throw new AppError(httpStatus.NOT_FOUND, 'User not found');
     }
