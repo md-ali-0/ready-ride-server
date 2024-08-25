@@ -1,8 +1,8 @@
-# Bike Rental Reservation System Backend
+# ReadyRide - Bike Rental Reservation System Backend
 
 ## Overview
 
-The Bike Rental Reservation System is a backend project that allows users to rent bikes and manage their bookings. It features user authentication, bike management, and rental handling. The system supports both users and admin roles, providing different functionalities based on the role.
+The ReadyRide - Bike Rental Reservation System is a backend project that allows users to rent bikes and manage their bookings. It features user authentication, bike management, and rental handling. The system supports both users and admin roles, providing different functionalities based on the role.
 
 ## Technologies
 
