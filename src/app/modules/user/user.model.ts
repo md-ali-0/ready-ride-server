@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-this-alias */
 import bcrypt from 'bcrypt';
 import { Schema, model } from 'mongoose';
 import config from '../../config';
@@ -30,6 +31,7 @@ const userSchema = new Schema<IUser, UserModel>(
     },
 );
 
+// before
 userSchema.pre('save', async function (next) {
     const user = this;
     user.password = await bcrypt.hash(this.password, config.salt);
@@ -40,4 +42,28 @@ userSchema.static('isUserExistsByEmail', async function (email: string) {
     return await User.findOne({ email }).select('+password');
 });
 
+userSchema.static('isUserDeleted', async function (isDeleted) {
+    return isDeleted;
+});
+
+userSchema.static('isUserBlocked', async function (status: string) {
+    return status === 'blocked';
+});
+
+userSchema.static(
+    'isUserPasswordMatched',
+    async function (planePassword, hashPassword) {
+        return await bcrypt.compare(planePassword, hashPassword);
+    },
+);
+
+userSchema.static(
+    'isJWTissuedBeforePasswordChange',
+    async function (passwordChangeTime: Date, JwtIssuedTime: number) {
+        const passwordChangeAtTime =
+            new Date(passwordChangeTime).getTime() / 1000;
+
+        return passwordChangeAtTime > JwtIssuedTime;
+    },
+);
 export const User = model<IUser, UserModel>('User', userSchema);

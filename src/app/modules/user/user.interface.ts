@@ -11,7 +11,18 @@ export interface IUser {
 }
 
 export interface UserModel extends Model<IUser> {
-    isUserExistsByEmail(email: string): Promise<Partial<IUser>>;
+    isUserExistsByEmail(email: string): Promise<IUser>;
+    isUserBlocked(status: string): Promise<boolean>;
+    isUserDeleted(isDeleted: boolean): Promise<boolean>;
+    isUserPasswordMatched(
+        planePassword: string,
+        hashPassword: string,
+    ): Promise<boolean>;
+    isJWTissuedBeforePasswordChange(
+        passwordChangeTime: Date,
+        JwtIssuedTime: number,
+    ): Promise<boolean>;
 }
+
 
 export type IUserRole = keyof typeof USER_ROLE;
