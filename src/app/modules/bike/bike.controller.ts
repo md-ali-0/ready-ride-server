@@ -7,7 +7,7 @@ import { BikeService } from './bike.service';
 
 const createBike = catchAsync(async (req, res) => {
     const payload = req.body;
-    const result = await BikeService.createBike(payload);
+    const result = await BikeService.createBike(req.file, payload);
 
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -22,7 +22,7 @@ const createBike = catchAsync(async (req, res) => {
 const updateBike = catchAsync(async (req, res) => {
     const { id } = req.params;
     const payload = req.body;
-    const result = await BikeService.updateBike(id, payload);
+    const result = await BikeService.updateBike(id, req.file, payload);
 
     sendResponse(res, {
         statusCode: httpStatus.OK,

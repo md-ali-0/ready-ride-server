@@ -3,6 +3,7 @@ import { IBike } from './bike.interface';
 
 const bikeSchema = new Schema<IBike>({
     name: { type: String, required: true, trim: true },
+    image: { type: String, required: true },
     description: { type: String, required: true },
     pricePerHour: { type: Number, required: true },
     isAvailable: { type: Boolean, required: true, default: true },
