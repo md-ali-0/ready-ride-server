@@ -53,11 +53,11 @@ const getAllBikes = async (query: Record<string, unknown>) => {
         .fields();
 
         const meta = await BikeQuery.countTotal();
-        const result = await BikeQuery.modelQuery;
+        const data = await BikeQuery.modelQuery;
     
     return {
         meta,
-        result
+        data
     }
 };
 

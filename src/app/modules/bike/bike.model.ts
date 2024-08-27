@@ -11,6 +11,7 @@ const bikeSchema = new Schema<IBike>({
     year: { type: Number, required: true },
     model: { type: String, required: true },
     brand: { type: String, required: true },
+    isFetured: { type: Boolean, required: true, default: false },
 });
 
 export const Bike = model<IBike>('Bike', bikeSchema);

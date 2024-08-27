@@ -55,7 +55,8 @@ const getAllBikes = catchAsync(async (req, res) => {
         statusCode: httpStatus.OK,
         success: true,
         message: 'Bikes retrieved successfully',
-        data: result,
+        data: result.data,
+        meta: result.meta
     });
 });
 
