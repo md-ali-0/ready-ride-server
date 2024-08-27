@@ -1,7 +1,7 @@
 import httpStatus from 'http-status';
 import config from '../../config';
 import { catchAsync } from '../../utils/catchAsync';
-import sendResponse, { sendResponseWithToken } from '../../utils/sendResponse';
+import sendResponse from '../../utils/sendResponse';
 import { AuthService } from './auth.service';
 
 const signUp = catchAsync(async (req, res) => {
@@ -24,7 +24,7 @@ const logIn = catchAsync(async (req, res) => {
         httpOnly: true,
     });
 
-    sendResponseWithToken(res, {
+    sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
         message: 'User logged in successfully',

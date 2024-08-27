@@ -1,0 +1,1 @@
+export const searchableBikeield = ['name', 'brand', 'model']

@@ -49,7 +49,7 @@ const deleteBike = catchAsync(async (req, res) => {
 // Retrieve all bikes
 
 const getAllBikes = catchAsync(async (req, res) => {
-    const result = await BikeService.getAllBikes();
+    const result = await BikeService.getAllBikes(req.query);
 
     sendResponse(res, {
         statusCode: httpStatus.OK,
