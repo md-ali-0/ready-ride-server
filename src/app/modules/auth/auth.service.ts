@@ -38,8 +38,8 @@ const logIn = async (payload: Partial<IUser>) => {
         throw new AppError(httpStatus.UNAUTHORIZED, 'Password is Incorrect');
     }
 
-    const jwtPayload: { user: string; role: string } = {
-        user: authUser.email as string,
+    const jwtPayload: { email: string; role: string } = {
+        email: authUser.email as string,
         role: authUser.role as string,
     };
 
@@ -48,10 +48,15 @@ const logIn = async (payload: Partial<IUser>) => {
         config.jwt_access_secret as string,
         config.jwt_access_expire_in as string,
     );
+    const refreshToken = await createToken(
+        jwtPayload,
+        config.jwt_refresh_secret as string,
+        config.jwt_refresh_expire_in as string,
+    );
 
     const user = await User.findOne({ email: authUser.email });
 
-    return { token, user };
+    return { token, refreshToken, user };
 };
 
 const changePassword = async (
@@ -109,7 +114,7 @@ const getRefreshToken = async (token: string) => {
         throw new AppError(httpStatus.NOT_FOUND, 'The user is not found');
     }
 
-    const jwtPayload = { user: authUser.id, role: authUser.role };
+    const jwtPayload = { email: authUser.email, role: authUser.role };
 
     const accessToken = await createToken(
         jwtPayload,
@@ -131,7 +136,7 @@ const forgetPassword = async (userId: string) => {
         throw new AppError(httpStatus.NOT_FOUND, 'This user is not found !');
     }
 
-    const jwtPayload = { user: user.id, role: user.role };
+    const jwtPayload = { email: user.email, role: user.role };
 
     const resetToken = await createToken(
         jwtPayload,

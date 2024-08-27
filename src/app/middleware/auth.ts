@@ -10,8 +10,8 @@ import { catchAsync } from '../utils/catchAsync';
 export const auth = (...requestRoles: IUserRole[]) => {
     return catchAsync(
         async (req: Request, res: Response, next: NextFunction) => {
-            const bearerToken = req.headers.authorization;
-            const token = bearerToken?.split(' ')[1];
+            const token = req.headers.authorization;
+
             if (!token) {
                 throw new AppError(
                     httpStatus.UNAUTHORIZED,
@@ -25,7 +25,6 @@ export const auth = (...requestRoles: IUserRole[]) => {
                 token,
                 config.jwt_access_secret as string,
             );
-
             const { email, role } = decoded as JwtPayload;
 
             const auhUser = await User.isUserExistsByEmail(email);
