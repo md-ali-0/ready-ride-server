@@ -7,4 +7,5 @@ export interface IRental {
     returnTime: Date;
     totalCost: number;
     isReturned: boolean;
+    bookingPayment: 'paid' | 'unpaid'
 }

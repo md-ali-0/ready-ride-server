@@ -31,13 +31,14 @@ const returnRental = catchAsync(async (req, res) => {
 const getAllRentals = catchAsync(async (req, res) => {
     const { email } = req.user;
 
-    const result = await RentalService.getAllRentals(email);
+    const result = await RentalService.getAllRentals(email, req.query);
 
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
         message: 'Rentals retrieved successfully',
-        data: result,
+        data: result.data,
+        meta: result.meta,
     });
 });
 

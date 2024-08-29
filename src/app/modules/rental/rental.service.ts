@@ -1,6 +1,7 @@
 import httpStatus from 'http-status';
 import { JwtPayload } from 'jsonwebtoken';
 import { startSession } from 'mongoose';
+import QueryBuilder from '../../builder/QueryBuilder';
 import AppError from '../../error/AppError';
 import { Bike } from '../bike/bike.model';
 import { User } from '../user/user.model';
@@ -126,19 +127,32 @@ const returnRental = async (id: string) => {
     }
 };
 
-const getAllRentals = async (email: string) => {
+const getAllRentals = async (email: string, query: Record<string, unknown>) => {
     // checking if user exists
     const authUser = await User.findOne({ email });
     if (!authUser) {
         throw new AppError(httpStatus.NOT_FOUND, 'User Not Found');
     }
 
-    // finding all rentals by user
-    const result = await Rental.find({
-        userId: authUser._id,
-    });
+    const RentalQuery = new QueryBuilder(
+        Rental.find({
+            userId: authUser._id,
+        }).populate('bikeId'),
+        query,
+    )
+        .search(['bookingPayment'])
+        .filter()
+        .sort()
+        .paginate()
+        .fields();
 
-    return result;
+    const meta = await RentalQuery.countTotal();
+    const data = await RentalQuery.modelQuery;
+
+    return {
+        meta,
+        data,
+    };
 };
 
 export const RentalService = {

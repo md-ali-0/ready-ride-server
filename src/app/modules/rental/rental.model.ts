@@ -9,6 +9,7 @@ const rentalSchema = new Schema<IRental>(
         returnTime: { type: Date, default: null },
         totalCost: { type: Number, required: true, default: 0 },
         isReturned: { type: Boolean, required: true, default: false },
+        bookingPayment: { type: String, enum: ['paid' , 'unpaid'], required: true, default: 'unpaid' },
     },
     { timestamps: true },
 );
