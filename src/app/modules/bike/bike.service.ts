@@ -52,13 +52,18 @@ const getAllBikes = async (query: Record<string, unknown>) => {
         .paginate()
         .fields();
 
-        const meta = await BikeQuery.countTotal();
-        const data = await BikeQuery.modelQuery;
-    
+    const meta = await BikeQuery.countTotal();
+    const data = await BikeQuery.modelQuery;
+
     return {
         meta,
-        data
-    }
+        data,
+    };
+};
+
+const getSingleBike = async (id: string): Promise<IBike | null> => {
+    const result = await Bike.findById(id);
+    return result;
 };
 
 export const BikeService = {
@@ -66,4 +71,5 @@ export const BikeService = {
     updateBike,
     deleteBike,
     getAllBikes,
+    getSingleBike
 };

@@ -44,13 +44,13 @@ const createRental = async (user: JwtPayload, payload: IRental) => {
             );
         }
 
-        await Bike.findByIdAndUpdate(
-            bikeId,
-            {
-                isAvailable: false,
-            },
-            { session },
-        );
+        // await Bike.findByIdAndUpdate(
+        //     bikeId,
+        //     {
+        //         isAvailable: false,
+        //     },
+        //     { session },
+        // );
 
         await session.commitTransaction();
         return createRental[0];
