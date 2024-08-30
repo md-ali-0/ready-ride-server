@@ -14,7 +14,7 @@ router.post(
     RentalController.createRental,
 );
 
-router.put('/:id/return', auth(USER_ROLE.admin), RentalController.returnRental);
+router.put('/:id/return', auth(USER_ROLE.admin, USER_ROLE.user), RentalController.returnRental);
 router.put('/:id/calculate', auth(USER_ROLE.admin), RentalController.calculateCost);
 router.get('/', auth(USER_ROLE.admin, USER_ROLE.user), RentalController.getAllRentals);
 router.get('/all', auth(USER_ROLE.admin), RentalController.getRentals);

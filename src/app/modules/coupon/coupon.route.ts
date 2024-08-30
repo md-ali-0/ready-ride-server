@@ -10,6 +10,12 @@ router.get(
     CouponController.allCoupons,
 );
 
+router.post(
+    '/:code',
+    auth(USER_ROLE.admin, USER_ROLE.user),
+    CouponController.singleCoupon,
+);
+
 router.put(
     '/:id',
     auth(USER_ROLE.admin),

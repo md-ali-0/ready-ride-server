@@ -22,7 +22,7 @@ const updateCoupon = catchAsync(async (req, res) => {
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
-        message: 'Rental created successfully',
+        message: 'Rental updated successfully',
         data: result,
     });
 });
@@ -34,10 +34,11 @@ const deleteCoupon = catchAsync(async (req, res) => {
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
-        message: 'Rental created successfully',
+        message: 'Rental deleted successfully',
         data: result,
     });
 });
+
 
 const allCoupons = catchAsync(async (req, res) => {
 
@@ -46,9 +47,22 @@ const allCoupons = catchAsync(async (req, res) => {
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
-        message: 'Rental created successfully',
+        message: 'Rental fetched successfully',
         data: result.data,
         meta: result.meta,
+    });
+});
+
+const singleCoupon = catchAsync(async (req, res) => {
+    const { code } = req.params
+    
+    const result = await CouponService.singleCoupon(code);
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Rental fetched successfully',
+        data: result,
     });
 });
 
@@ -56,5 +70,6 @@ export const CouponController = {
     createCoupon,
     allCoupons,
     updateCoupon,
-    deleteCoupon
+    deleteCoupon,
+    singleCoupon
 };

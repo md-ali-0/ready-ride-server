@@ -36,9 +36,15 @@ const allCoupons = async (query: Record<string, unknown>) => {
     };
 };
 
+const singleCoupon = async (code: string) =>{
+    const result = await Coupon.findOne({code})
+    return result
+}
+
 export const CouponService = {
     createCoupon,
     allCoupons,
     updateCoupon,
     deleteCoupon,
+    singleCoupon
 };
