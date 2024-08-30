@@ -31,16 +31,14 @@ const updateBike = async (
         const { secure_url } = await sendImageToCloudinary(imageName, path);
         payload.image = secure_url as string;
     }
+
     const result = await Bike.findByIdAndUpdate(id, payload, { new: true });
+
     return result;
 };
 
 const deleteBike = async (id: string): Promise<IBike | null> => {
-    const result = await Bike.findByIdAndUpdate(
-        id,
-        { isAvailable: false },
-        { new: true },
-    );
+    const result = await Bike.findByIdAndDelete(id);
     return result;
 };
 
@@ -71,5 +69,5 @@ export const BikeService = {
     updateBike,
     deleteBike,
     getAllBikes,
-    getSingleBike
+    getSingleBike,
 };

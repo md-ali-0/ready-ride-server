@@ -6,6 +6,11 @@ const getProfile = async (email: string): Promise<IUser | null> => {
     return user;
 };
 
+const allUsers = async (): Promise<IUser[] | []> => {
+    const users = await User.find();
+    return users;
+};
+
 const updateProfile = async (
     email: string,
     payload: Partial<IUser>,
@@ -14,7 +19,24 @@ const updateProfile = async (
     return user;
 };
 
+const updateUser = async (
+    id: string,
+    payload: Partial<IUser>,
+): Promise<IUser | null> => {
+    const user = await User.findByIdAndUpdate(id, payload, { new: true });
+    return user;
+};
+
+const deleteUser = async (id: string): Promise<IUser | null> => {
+    const result = await User.findByIdAndDelete(id);
+    return result;
+};
+
+
 export const UserService = {
+    allUsers,
     getProfile,
     updateProfile,
+    updateUser,
+    deleteUser
 };

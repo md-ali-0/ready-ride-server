@@ -11,7 +11,7 @@ const router = Router();
 router.post(
     '/',
     auth(USER_ROLE.admin),
-    upload.single('file'),
+    upload.single('image'),
     (req: Request, res: Response, next: NextFunction) => {
         req.body = JSON.parse(req.body.data);
         next();
@@ -22,7 +22,7 @@ router.post(
 router.put(
     '/:id',
     auth(USER_ROLE.admin),
-    upload.single('file'),
+    upload.single('image'),
     (req: Request, res: Response, next: NextFunction) => {
         req.body = JSON.parse(req.body.data);
         next();
@@ -30,6 +30,7 @@ router.put(
     requestValidation(BikeValidation.updateBikeValidationSchema),
     BikeController.updateBike,
 );
+
 router.delete('/:id', auth(USER_ROLE.admin), BikeController.deleteBike);
 router.get('/', BikeController.getAllBikes);
 router.get('/:id', BikeController.getSingleBike);

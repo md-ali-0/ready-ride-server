@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { AuthRoute } from '../modules/auth/auth.route';
 import { BikeRoute } from '../modules/bike/bike.route';
+import { CouponRoute } from '../modules/coupon/coupon.route';
 import { PaymentRoute } from '../modules/payment/payment.route';
 import { RentalRoute } from '../modules/rental/rental.route';
 import { UserRoute } from '../modules/user/user.route';
@@ -13,6 +14,7 @@ const moduleRoutes = [
     { path: '/bikes', route: BikeRoute },
     { path: '/rentals', route: RentalRoute },
     { path: '/payment', route: PaymentRoute },
+    { path: '/coupons', route: CouponRoute },
 ];
 
 moduleRoutes.forEach(route => router.use(route.path, route.route));
