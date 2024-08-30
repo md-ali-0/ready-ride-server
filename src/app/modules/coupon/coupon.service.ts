@@ -1,3 +1,4 @@
+import QueryBuilder from '../../builder/QueryBuilder';
 import { ICoupon } from './coupon.interface';
 import { Coupon } from './coupon.model';
 
@@ -19,9 +20,20 @@ const deleteCoupon = async (id: string): Promise<ICoupon | null> => {
     return results;
 };
 
-const allCoupons = async (): Promise<ICoupon[] | []> => {
-    const results = await Coupon.find();
-    return results;
+const allCoupons = async (query: Record<string, unknown>) => {
+    const CouponQuery = new QueryBuilder(Coupon.find(), query)
+        .filter()
+        .sort()
+        .paginate()
+        .fields();
+
+    const meta = await CouponQuery.countTotal();
+    const data = await CouponQuery.modelQuery;
+
+    return {
+        meta,
+        data,
+    };
 };
 
 export const CouponService = {

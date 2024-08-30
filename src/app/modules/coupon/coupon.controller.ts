@@ -41,13 +41,14 @@ const deleteCoupon = catchAsync(async (req, res) => {
 
 const allCoupons = catchAsync(async (req, res) => {
 
-    const result = await CouponService.allCoupons();
+    const result = await CouponService.allCoupons(req.query);
 
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
         message: 'Rental created successfully',
-        data: result,
+        data: result.data,
+        meta: result.meta,
     });
 });
 

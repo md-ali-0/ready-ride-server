@@ -53,7 +53,7 @@ class QueryBuilder<T> {
     }
 
     limit() {
-        const limit = Number(this?.query?.limit) || 10;
+        const limit = Number(this?.query?.limit) || 999;
 
         this.modelQuery = this.modelQuery.limit(limit);
 

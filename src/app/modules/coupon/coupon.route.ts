@@ -17,7 +17,7 @@ router.put(
 );
 
 router.post(
-    '/create',
+    '/',
     auth(USER_ROLE.admin),
     CouponController.createCoupon,
 );
