@@ -55,7 +55,6 @@ const allCoupons = catchAsync(async (req, res) => {
 
 const singleCoupon = catchAsync(async (req, res) => {
     const { code } = req.params
-    
     const result = await CouponService.singleCoupon(code);
 
     sendResponse(res, {

@@ -71,14 +71,6 @@ const returnRental = async (id: string) => {
     }
 
     const bikeId = rental.bikeId;
-    const startTime: Date = new Date(rental.startTime);
-    const currentTime: Date = new Date();
-
-    const totalMilliseconds: number =
-        currentTime.getTime() - startTime.getTime();
-    const totalHours: number = totalMilliseconds / (1000 * 60 * 60);
-
-    const roundedTotalHours: number = parseInt(totalHours.toFixed(0), 10);
 
     // creating session
     const session = await startSession();
@@ -103,7 +95,6 @@ const returnRental = async (id: string) => {
             id,
             {
                 returnTime: new Date(),
-                totalCost: roundedTotalHours * updateBike?.pricePerHour,
                 isReturned: true,
                 bookingPayment: "paid"
             },
@@ -167,8 +158,7 @@ const calculateCost = async (id: string) => {
         const updateRental = await Rental.findByIdAndUpdate(
             id,
             {
-                returnTime: new Date(),
-                totalCost: roundedTotalHours * updateBike?.pricePerHour,
+                totalCost: (roundedTotalHours * updateBike?.pricePerHour) - 100,
             },
             { new: true, session },
         );
