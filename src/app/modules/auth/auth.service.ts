@@ -9,6 +9,13 @@ import { User } from '../user/user.model';
 import { createToken, verifyToken } from './auth.utils';
 
 const signUp = async (payload: IUser) => {
+    const { email } = payload;
+    const isUserExists = await User.isUserExistsByEmail(email as string);
+
+    if (isUserExists) {
+        throw new AppError(httpStatus.NOT_FOUND, 'User Already Exists');
+    }
+
     const result = await User.create(payload);
     return result;
 };
