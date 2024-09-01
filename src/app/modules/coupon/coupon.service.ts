@@ -22,6 +22,7 @@ const deleteCoupon = async (id: string): Promise<ICoupon | null> => {
 
 const allCoupons = async (query: Record<string, unknown>) => {
     const CouponQuery = new QueryBuilder(Coupon.find(), query)
+        .search(['code', 'discountValue'])
         .filter()
         .sort()
         .paginate()
