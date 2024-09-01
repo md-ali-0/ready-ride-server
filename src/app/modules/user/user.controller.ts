@@ -18,13 +18,14 @@ const getProfile = catchAsync(async (req, res) => {
 });
 
 const allUsers = catchAsync(async (req, res) => {
-    const result = await UserService.allUsers();
+    const result = await UserService.allUsers(req.query);
 
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
         message: 'Users retrieved successfully',
-        data: result,
+        data: result.data,
+        meta: result.meta,
     });
 });
 

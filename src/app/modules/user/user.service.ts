@@ -1,3 +1,4 @@
+import QueryBuilder from '../../builder/QueryBuilder';
 import { IUser } from './user.interface';
 import { User } from './user.model';
 
@@ -6,9 +7,21 @@ const getProfile = async (email: string): Promise<IUser | null> => {
     return user;
 };
 
-const allUsers = async (): Promise<IUser[] | []> => {
-    const users = await User.find();
-    return users;
+const allUsers = async (query: Record<string, unknown>) => {
+    const UserQuery = new QueryBuilder(User.find(), query)
+        .search(['name', 'email', 'phone', 'address'])
+        .filter()
+        .sort()
+        .paginate()
+        .fields();
+
+    const meta = await UserQuery.countTotal();
+    const data = await UserQuery.modelQuery;
+
+    return {
+        meta,
+        data,
+    };
 };
 
 const updateProfile = async (
@@ -32,11 +45,10 @@ const deleteUser = async (id: string): Promise<IUser | null> => {
     return result;
 };
 
-
 export const UserService = {
     allUsers,
     getProfile,
     updateProfile,
     updateUser,
-    deleteUser
+    deleteUser,
 };
