@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
     cors({
-        origin: ['http://localhost:5173', 'https://ready-ride-client.vercel.app'],
+        origin: ['http://localhost:5173', 'https://ready-ride.vercel.app'],
         credentials: true,
     }),
 );
