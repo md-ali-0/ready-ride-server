@@ -10,10 +10,10 @@ import { createToken, verifyToken } from './auth.utils';
 
 const signUp = async (payload: IUser) => {
     const { email } = payload;
-    const isUserExists = await User.isUserExistsByEmail(email as string);
+    const isUserExists = await User.findOne({email});
 
     if (isUserExists) {
-        throw new AppError(httpStatus.NOT_FOUND, 'User Already Exists');
+        throw new AppError(httpStatus.CONFLICT, 'User Email Already Exists');
     }
 
     const result = await User.create(payload);
